@@ -1,0 +1,112 @@
+{
+  "JobRuns": [
+    {
+      "Id": "jr_27800644c28bcfa70f31c03f55f4c5899fa64ed2840b7ae157bf4928e75ec",
+      "Attempt": 0,
+      "TriggerName": "Trigger-scheduled",
+      "JobName": "job-acrl",
+      "StartedOn": 1544679040.687,
+      "LastModifiedOn": 1544690614.912,
+      "CompletedOn": 1544690614.912,
+      "JobRunState": "RUNNING",
+      "PredecessorRuns": [],
+      "AllocatedCapacity": 10,
+      "ExecutionTime": 11560,
+      "Timeout": 2880,
+      "LogGroupName": "/aws-glue/jobs"
+    },
+    {
+      "Id": "jr_efdf63e5500a2beab4fa74166503d3223c4f009eb0b3f8ab0fe9631a3c3e8",
+      "Attempt": 0,
+      "TriggerName": "Trigger-scheduled",
+      "JobName": "job-mem",
+      "StartedOn": 1544592623.394,
+      "LastModifiedOn": 1544602309.958,
+      "CompletedOn": 1544602309.958,
+      "JobRunState": "SUCCEEDED",
+      "PredecessorRuns": [],
+      "AllocatedCapacity": 10,
+      "ExecutionTime": 9673,
+      "Timeout": 2880,
+      "LogGroupName": "/aws-glue/jobs"
+    },
+    {
+      "Id": "jr_0bf243a7cde93cc0da37195ac4c3a837bc092b84f642229d0e5fdc37fb772",
+      "Attempt": 0,
+      "TriggerName": "Trigger-scheduled",
+      "JobName": "job-txn",
+      "StartedOn": 1544561073.97,
+      "LastModifiedOn": 1544561112.54,
+      "CompletedOn": 1544561112.54,
+      "JobRunState": "STOPPED",
+      "PredecessorRuns": [],
+      "AllocatedCapacity": 10,
+      "ExecutionTime": 0,
+      "Timeout": 2880,
+      "LogGroupName": "/aws-glue/jobs"
+    },
+    {
+      "Id": "jr_418fb45f1b6069098017ad169ecefbcdd503f638dcc88ca4b7c8d2a7316c8",
+      "Attempt": 0,
+      "TriggerName": "Trigger-scheduled",
+      "JobName": "job-optin",
+      "StartedOn": 1544333449.395,
+      "LastModifiedOn": 1544338926.891,
+      "CompletedOn": 1544338926.891,
+      "JobRunState": "FAILED",
+      "ErrorMessage": "An error occurred while calling o189.parquet. Failed to rename FileStatus{path=s3://.../_temporary/0/_temporary/attempt_20181209064234_0009_m_000062_3/execution_date=2015-05-05/part-00062-37be7069-fb09-47e7-b440-4264fa1a0a21.c000.snappy.parquet; isDirectory=false; length=22914; replication=1; blocksize=67108864; modification_time=1544337775000; access_time=0; owner=root; group=root; permission=rw-rw-rw-; isSymlink=false} to s3://.../execution_date=2015-05-05/part-00062-37be7069-fb09-47e7-b440-4264fa1a0a21.c000.snappy.parquet",
+      "PredecessorRuns": [],
+      "AllocatedCapacity": 10,
+      "ExecutionTime": 5394,
+      "Timeout": 2880,
+      "LogGroupName": "/aws-glue/jobs"
+    },
+    {
+      "Id": "jr_5acbe98ff0e46f180047139c4323356be683d60f47c31734e12b0f7a658b1",
+      "Attempt": 0,
+      "TriggerName": "Trigger-scheduled",
+      "JobName": "job-club",
+      "StartedOn": 1544287948.249,
+      "LastModifiedOn": 1544288407.859,
+      "CompletedOn": 1544288407.859,
+      "JobRunState": "RUNNING",
+      "Arguments": {
+        "--configuration_bucket": "cloudformation-artifacts",
+        "--configuration_file": "data-lake/0.173.0/glue/config/refined/job-club.cfg",
+        "--environment": "prd",
+        "--execution_date": "CURRENT",
+        "--job-bookmark-option": "job-bookmark-enable",
+        "--role_arn": "arn:aws:iam::123:role/datahub-role-job-glue-prd"
+      },
+      "PredecessorRuns": [],
+      "AllocatedCapacity": 10,
+      "ExecutionTime": 442,
+      "Timeout": 2880,
+      "LogGroupName": "/aws-glue/jobs"
+    },
+    {
+      "Id": "jr_5acbe98ff0e46f180047139c4323356be683d60f47c31734e12b0f7a658b1",
+      "Attempt": 0,
+      "TriggerName": "Trigger-scheduled",
+      "JobName": "job-rdm",
+      "StartedOn": 1544287948.249,
+      "LastModifiedOn": 1544288407.859,
+      "CompletedOn": 1544288407.859,
+      "JobRunState": "RUNNING",
+      "Arguments": {
+        "--configuration_bucket": "cloudformation-artifacts",
+        "--configuration_file": "data-lake/0.173.0/glue/config/refined/job-rdm.cfg",
+        "--environment": "prd",
+        "--execution_date": "CURRENT",
+        "--job-bookmark-option": "job-bookmark-enable",
+        "--role_arn": "arn:aws:iam::123:role/datahub-role-job-glue-prd"
+      },
+      "PredecessorRuns": [],
+      "AllocatedCapacity": 10,
+      "ExecutionTime": 442,
+      "Timeout": 2880,
+      "LogGroupName": "/aws-glue/jobs"
+    }
+  ],
+  "NextToken": "djddh=="
+}

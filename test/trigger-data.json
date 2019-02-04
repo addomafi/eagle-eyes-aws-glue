@@ -1,0 +1,94 @@
+{
+  "Triggers": [
+    {
+      "Name": "Trigger-Scheduled-IncomingDelete-prd",
+      "Type": "SCHEDULED",
+      "State": "ACTIVATED",
+      "Description": "DESCRIPTION_SCHEDULED",
+      "Schedule": "cron(0 18 * * ? *)",
+      "Actions": [
+        {
+          "JobName": "job_incoming_delete_old_files-prd",
+          "Arguments": {
+            "--job-bookmark-option": "job-bookmark-enable"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Trigger-Scheduled-Profiling-prd",
+      "Type": "SCHEDULED",
+      "State": "CREATED",
+      "Description": "DESCRIPTION_SCHEDULED",
+      "Schedule": "cron(0 9 * * ? *)",
+      "Actions": [
+        {
+          "JobName": "data_profiling_dynamodb-prd",
+          "Arguments": {
+            "--job-bookmark-option": "job-bookmark-enable"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Trigger-scheduled-Alerta-prd",
+      "Type": "SCHEDULED",
+      "State": "ACTIVATED",
+      "Description": "DESCRIPTION_SCHEDULED",
+      "Schedule": "cron(0 10 * * ? *)",
+      "Actions": [
+        {
+          "JobName": "job_alert_send_email-prd",
+          "Arguments": {
+            "--job-bookmark-option": "job-bookmark-enable"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Trigger-scheduled",
+      "Type": "SCHEDULED",
+      "State": "ACTIVATED",
+      "Description": "DESCRIPTION_SCHEDULED",
+      "Schedule": "cron(0 5 * * ? *)",
+      "Actions": [
+        {
+          "JobName": "job-mem"
+        },
+        {
+          "JobName": "job-txn"
+        },
+        {
+          "JobName": "job-acrl"
+        },
+        {
+          "JobName": "job-rdm"
+        },
+        {
+          "JobName": "job-optin"
+        },
+        {
+          "JobName": "job-club",
+          "Arguments": {
+            "--job-bookmark-option": "job-bookmark-enable"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Trigger-scheduled-Trust-Ref-prd",
+      "Type": "SCHEDULED",
+      "State": "ACTIVATED",
+      "Description": "DESCRIPTION_SCHEDULED",
+      "Schedule": "cron(30 7 * * ? *)",
+      "Actions": [
+        {
+          "JobName": "trusted_refined_process_tb_mer-prd",
+          "Arguments": {
+            "--job-bookmark-option": "job-bookmark-enable"
+          }
+        }
+      ]
+    }
+  ]
+}
