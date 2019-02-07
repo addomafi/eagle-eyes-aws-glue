@@ -43,7 +43,7 @@ AWS.mock('Glue', 'getJobRuns', function(params, callback) {
   _.forEach(glueJobRuns.JobRuns, jobRun => {
     var config = _.filter(configJobTestCase, ["key", jobRun.JobName])
     if (config.length == 0) config = [{value: 0}]
-    jobRun.StartedOn = parseInt(moment().subtract(config[0].value, 'minutes').format('x')) / 1000
+    jobRun.StartedOn = parseInt(moment().subtract(config[0].value, 'minutes').format('x'))
   })
   return callback(null, {
     JobRuns: _.filter(glueJobRuns.JobRuns, ["JobName", params.JobName])

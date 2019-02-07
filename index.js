@@ -41,7 +41,7 @@ let eeAwsGlue = function() {
         }
         if (data) {
           var runs = _.filter(data.JobRuns, function(d) {
-            d.runOver = moment().diff(moment(d.StartedOn*1000), 'minutes')
+            d.runOver = moment().diff(moment(d.StartedOn), 'minutes')
             return d.runOver <= params.checkInterval
           })
           if (runs.length > 0) {
