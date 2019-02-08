@@ -9,7 +9,8 @@ Stable.
 ## Installation
 
 ```sh
-npm install eagle-eyes-aws-glue```
+npm install eagle-eyes-aws-glue
+```
 
 ## Features
 
@@ -29,11 +30,12 @@ eeAwsGlue.checkJobRun().then(results => {
   console.log(JSON.stringify(results));
 }).catch(err => {
   console.log(err)
-})```
+})
+```
 
 It will return an empty array when all jobs had succeeded or an array like this if not:
 
-```js
+```json
 [
   {
     "name": "job-txn",
