@@ -62,6 +62,9 @@
           "JobName": "job-acrl"
         },
         {
+          "JobName": "job-err"
+        },
+        {
           "JobName": "job-rdm"
         },
         {

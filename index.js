@@ -9,19 +9,30 @@ let AWS = require('aws-sdk');
 let glue = new AWS.Glue();
 let request = require('request-promise-native');
 let _ = require('lodash');
-var cronstrue = require('cronstrue');
-var moment = require('moment-timezone');
-var Promise = require("bluebird");
+let extend = require('extend')
+let cronstrue = require('cronstrue');
+let moment = require('moment-timezone');
+let Promise = require("bluebird");
+let join = Promise.join;
+let bunyan = require('bunyan');
+let log = bunyan.createLogger({name: "eagle-eyes-aws-glue"});
+log.level("fatal")
 
 let eeAwsGlue = function() {
   var glue = new AWS.Glue();
   var self = this
+  this._options = {
+    "discardJobs": [],
+    "jobThreshold": [],
+    "checkInterval": 600,
+    "maxDuration": 19
+  };
 
   self._listTriggers = function() {
     return new Promise((resolve, reject) => {
       glue.getTriggers({}, function(err, data) {
         if (err) {
-          console.log(err, err.stack); // an error occurred
+          log.info(`An error has occurred when calling API for job triggers, details: ${err.code} - ${err.message}`); // an error occurred
           reject(err)
         }
         resolve(data);
@@ -36,9 +47,9 @@ let eeAwsGlue = function() {
           MaxResults: 5
         }, function(err, data) {
         if (err) {
-          console.log(err, err.stack); // an error occurred
-          reject(err)
+          log.info(`An error has occurred when calling API for job run, details: ${err.code} - ${err.message}`); // an error occurred
         }
+
         if (data) {
           var runs = _.filter(data.JobRuns, function(d) {
             d.runOver = moment().diff(moment(d.StartedOn), 'minutes')
@@ -76,6 +87,8 @@ let eeAwsGlue = function() {
  *       is specified with 60m, the check will run for this job until 04:00am.
  */
 eeAwsGlue.prototype.checkJobRun = function(params) {
+  var self = this;
+  params = extend(true, {}, this._options, params)
   return new Promise((resolve, reject) => {
     this._listTriggers().then(triggers => {
       var filteredTriggers = _.filter(triggers.Triggers, {"State": "ACTIVATED"})
@@ -90,13 +103,13 @@ eeAwsGlue.prototype.checkJobRun = function(params) {
           var now = moment.tz("GMT")
           if (timeToRun.isValid() && now.diff(timeToRun, 'minutes') >= 0 && now.diff(timeToRun, 'minutes') <= params.checkInterval) {
             _.each(trigger.Actions, job => {
-              jobsToCheck.push(this._getJobRuns(job.JobName, params))
+              jobsToCheck.push(job.JobName)
             })
           }
         }
       })
-      Promise.map(jobsToCheck, function(jobCheck) {
-        return jobCheck;
+      Promise.map(jobsToCheck, function(job) {
+        return self._getJobRuns(job, params);
       }, {
         concurrency: 5
       }).then(results => {
@@ -108,6 +121,8 @@ eeAwsGlue.prototype.checkJobRun = function(params) {
           }
           return params.discardJobs.indexOf(o.name) == -1 && ((o.status === "RUNNING" && o.runOver > maxDuration) || (o.status != "SUCCEEDED" && o.status != "RUNNING"))
         }))
+      }).catch(err => {
+        log.error(err)
       })
     })
   })

@@ -48,9 +48,21 @@ AWS.mock('Glue', 'getJobRuns', function(params, callback) {
     if (config.length == 0) config = [{value: 0}]
     jobRun.StartedOn = parseInt(moment().subtract(config[0].value, 'minutes').format('x'))
   })
-  return callback(null, {
-    JobRuns: _.filter(glueJobRuns.JobRuns, ["JobName", params.JobName])
-  })
+  if (params.JobName === "job-err") {
+    return callback({
+      "code": "AWS-123",
+      "message": "An error has occurred",
+      "retryable": false,
+      "statusCode": 500,
+      "time": moment().toDate(),
+      "hostname": "glue.aws.com",
+      "region": "us-east-1"
+    }, null)
+  } else {
+    return callback(null, {
+      JobRuns: _.filter(glueJobRuns.JobRuns, ["JobName", params.JobName])
+    })
+  }
 });
 
 describe('Glue Test', function(){
@@ -68,6 +80,15 @@ describe('Glue Test', function(){
       }).should.eventually.have.property('status');
   });
 
+  it('should have a valid check for job runs without specified params', function(){
+    eeAwsGlue.checkJobRun().should.eventually.deep.equal([{name: "job-txn", status: "STOPPED", runOver: 0},
+                              {name: "job-acrl", status: "RUNNING", runOver: 30},
+                              {name: "job-err", status: "NOK"},
+                              {name: "job-rdm", status: "RUNNING", runOver: 30},
+                              {name: "job-optin", status: "FAILED", runOver: 0},
+                              {name: "job-club", status: "RUNNING", runOver: 20}]);
+  });
+
   it('should have a valid check for job runs', function(){
     eeAwsGlue.checkJobRun({
       "discardJobs": ["job-rdm"],
@@ -78,6 +99,7 @@ describe('Glue Test', function(){
       "maxDuration": 20
     }).should.eventually.deep.equal([{name: "job-txn", status: "STOPPED", runOver: 0},
                               {name: "job-acrl", status: "RUNNING", runOver: 30},
+                              {name: "job-err", status: "NOK"},
                               {name: "job-optin", status: "FAILED", runOver: 0}]);
   });
 });
