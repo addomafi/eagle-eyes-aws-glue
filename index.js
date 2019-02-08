@@ -95,9 +95,18 @@ eeAwsGlue.prototype.checkJobRun = function(params) {
           }
         }
       })
-      Promise.all(jobsToCheck).then(results => {
+      Promise.map(jobsToCheck, function(jobCheck) {
+        return jobCheck;
+      }, {
+        concurrency: 5
+      }).then(results => {
         resolve(_.filter(results, function(o) {
-          return params.discardJobs.indexOf(o.name) == -1 && ((o.status === "RUNNING" && o.runOver > params.maxDuration) || (o.status != "SUCCEEDED" && o.status != "RUNNING"))
+          var jobThreshold = _.filter(params.jobThreshold, ["key", o.name]);
+          var maxDuration = params.maxDuration;
+          if (jobThreshold.length > 0) {
+            maxDuration = jobThreshold[0].value;
+          }
+          return params.discardJobs.indexOf(o.name) == -1 && ((o.status === "RUNNING" && o.runOver > maxDuration) || (o.status != "SUCCEEDED" && o.status != "RUNNING"))
         }))
       })
     })

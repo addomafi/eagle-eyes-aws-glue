@@ -27,6 +27,9 @@ const configJobTestCase = [{
 },{
   "key": "job-rdm",
   "value": 30
+},{
+  "key": "job-txn-x",
+  "value": 300
 }]
 
 var AWS = require('aws-sdk-mock');
@@ -68,6 +71,9 @@ describe('Glue Test', function(){
   it('should have a valid check for job runs', function(){
     eeAwsGlue.checkJobRun({
       "discardJobs": ["job-rdm"],
+      "jobThreshold": [
+        {"key": "job-txn-x", "value": 301}
+      ],
       "checkInterval": 600,
       "maxDuration": 20
     }).should.eventually.deep.equal([{name: "job-txn", status: "STOPPED", runOver: 0},

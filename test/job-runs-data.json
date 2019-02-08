@@ -106,6 +106,29 @@
       "ExecutionTime": 442,
       "Timeout": 2880,
       "LogGroupName": "/aws-glue/jobs"
+    },
+    {
+      "Id": "jr_5acbe98ff0e46f180047139c4323356be683d60f47c31734e12b0f7a651",
+      "Attempt": 0,
+      "TriggerName": "Trigger-scheduled",
+      "JobName": "job-txn-x",
+      "StartedOn": 1544287948.249,
+      "LastModifiedOn": 1544288407.859,
+      "CompletedOn": 1544288407.859,
+      "JobRunState": "RUNNING",
+      "Arguments": {
+        "--configuration_bucket": "cloudformation-artifacts",
+        "--configuration_file": "data-lake/0.173.0/glue/config/refined/job-txn-x.cfg",
+        "--environment": "prd",
+        "--execution_date": "CURRENT",
+        "--job-bookmark-option": "job-bookmark-enable",
+        "--role_arn": "arn:aws:iam::123:role/datahub-role-job-glue-prd"
+      },
+      "PredecessorRuns": [],
+      "AllocatedCapacity": 10,
+      "ExecutionTime": 442,
+      "Timeout": 2880,
+      "LogGroupName": "/aws-glue/jobs"
     }
   ],
   "NextToken": "djddh=="

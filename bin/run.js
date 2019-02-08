@@ -6,7 +6,10 @@ var eeAwsGlue = new EeAwsGlue()
 
 eeAwsGlue.checkJobRun({
   "discardJobs": [],
-  "checkInterval": 690,
+  "jobThreshold": [
+    {"key": "siebel_refined_process_tb_loy_txn_acrl-prd", "value": 720}
+  ],
+  "checkInterval": 780,
   "maxDuration": 20
 }).then(results => {
   console.log(JSON.stringify(results));
