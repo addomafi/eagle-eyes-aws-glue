@@ -1,6 +1,6 @@
 {
   "name": "eagle-eyes-aws-glue",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "An Eagle Eyes module to check executions of glue jobs",
   "main": "index.js",
   "scripts": {
