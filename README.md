@@ -1,4 +1,4 @@
-# An [Eagle Eyes](https://github.com/addomafi/eagle-eyes) module for AWS Glue
+# An [Eagle Eyes](https://github.com/addomafi/eagle-eyes) module for AWS Glue [![Build Status](https://travis-ci.org/addomafi/eagle-eyes-aws-glue.svg?branch=master)](https://travis-ci.org/addomafi/eagle-eyes-aws-glue)
 
 This module operates as an extension for Eagle Eyes to enable checking and alerting for Glue Jobs.
 
