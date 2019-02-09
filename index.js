@@ -3,6 +3,7 @@
  *
  * license: MIT
  * author: Adauto Martins
+ * 
  */
 'use strict';
 let AWS = require('aws-sdk');
