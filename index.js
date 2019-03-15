@@ -3,7 +3,7 @@
  *
  * license: MIT
  * author: Adauto Martins
- * 
+ *
  */
 'use strict';
 let AWS = require('aws-sdk');
@@ -101,8 +101,8 @@ eeAwsGlue.prototype.checkJobRun = function(params) {
           var cronStr = cronTxt[1]
           var timeToRun = moment.tz(cronstrue.toString(cronStr.substring(0,cronStr.length-2)), ["At hh:mm AA"], "GMT");
           // If it was parseable and diff time is greater than 30 and less than 300
-          var now = moment.tz("GMT")
-          if (timeToRun.isValid() && now.diff(timeToRun, 'minutes') >= 0 && now.diff(timeToRun, 'minutes') <= params.checkInterval) {
+          var now = moment.utc(moment().format("YYYY-MM-DDTHH:mm:ss"))
+          if (timeToRun.isValid() && now.diff(timeToRun, 'minutes') >= params.maxDuration && now.diff(timeToRun, 'minutes') <= params.checkInterval) {
             _.each(trigger.Actions, job => {
               jobsToCheck.push(job.JobName)
             })
