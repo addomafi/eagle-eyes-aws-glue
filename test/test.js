@@ -17,6 +17,9 @@ var glueJobRuns = JSON.parse(fs.readFileSync(path.join(__dirname, 'job-runs-data
 const configTriggerTestCase = [{
   "key": "Trigger-scheduled",
   "value": 300
+},{
+  "key": "Trigger-scheduled-Alerta-prd",
+  "value": 1
 }]
 const configJobTestCase = [{
   "key": "job-acrl",
@@ -37,7 +40,7 @@ AWS.mock('Glue', 'getTriggers', function(params, callback) {
   _.forEach(glueTriggers.Triggers, trigger => {
     var config = _.filter(configTriggerTestCase, ["key", trigger.Name])
     if (config.length == 0) config = [{value: 600}]
-    trigger.Schedule = `cron(0 ${moment().subtract(config[0].value, 'minutes').format('HH')} * * ? *)`
+    trigger.Schedule = `cron(${moment().subtract(config[0].value, 'minutes').format('mm')} ${moment().subtract(config[0].value, 'minutes').format('HH')} * * ? *)`
   })
   return callback(null, glueTriggers)
 });
